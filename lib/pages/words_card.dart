@@ -24,8 +24,8 @@ class _WordsCardState extends State<WordsCard> {
           debugPrint('Card tapped.');
         },
         child: SizedBox(
-          width: 700,
-          height: 500,
+          width: 500,
+          height: 300,
           child: Text(
             "$message",
             textAlign: TextAlign.center,
@@ -41,8 +41,10 @@ class _WordsCardState extends State<WordsCard> {
   int wordIndex = 0;
   int cardType = 0;
   int cardNum = 0;
+  List<String> type = ["meaning", "word"];
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.deepPurpleAccent,
       appBar: AppBar(
@@ -76,30 +78,42 @@ class _WordsCardState extends State<WordsCard> {
                       context = docs.docs[wordIndex]['meaning'];
                     }
                     return Card(
-                      child: InkWell(
-                        splashColor: Colors.blue.withAlpha(100),
-                        onTap: () {
-                          if(cardType==0){
-                            cardType=1;
-                          }else{
-                            cardType=0;
-                          }
-                          setState(() {
-                          });
-                        },
-                        child: SizedBox(
-                          width: 700,
-                          height: 500,
-                          child: Text(
-                            '$context',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 40,
+                          child: InkWell(
+                            splashColor: Colors.blue.withAlpha(100),
+                            onTap: () {
+                              if(cardType==0){
+                                cardType=1;
+                              }else{
+                                cardType=0;
+                              }
+                              setState(() {
+                              });
+                            },
+                            child: SizedBox(
+                              width: 500,
+                              height: 300,
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '\n\n$context',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 40,
+                                    ),
+                                  ),
+                                  Text(
+                                    '\n\nclick the card to check ${type[cardType]}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              )
+
                             ),
                           ),
-                        ),
-                      ),
-                    );
+                        );
                   }
                 }
                 return createWordCard("loading");

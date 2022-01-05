@@ -20,11 +20,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: passWord);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        condition = 'The password provided is too weak.';
-      } else if (e.code == 'email-already-in-use') {
-        condition = 'The account already exists for that email.';
-      }
+      condition = e.code;
     } catch (e) {
       print(e);
     }

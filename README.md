@@ -23,17 +23,9 @@ account and back to the visitor page. And there some hint if you have error when
 ### framework
 * flutter 2.6.0
 
-### flutter package
-* cupertino_icons ^1.0.2
-* firebase_storage ^8.0.4
-* cloud_firestore ^1.0.6
-* firebase_auth ^1.1.1
-* argon_buttons_flutter ^1.1.0
-* flutter_spinkit ^5.1.0
-
 ### Executing program
 
-[You can visit there] (https://ggjj321.github.io/#/)
+You can visit there https://ggjj321.github.io/#/
 
 ### Executing program
 

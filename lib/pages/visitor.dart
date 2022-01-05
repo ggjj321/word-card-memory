@@ -138,6 +138,8 @@ class _vistorPageState extends State<vistorPage> {
                       onTap: (startLoading, stopLoading, btnState) {
                         if(btnState == ButtonState.Idle){
                           signIn(emailController.text, psdController.text);
+                          emailController.clear();
+                          psdController.clear();
                         }
                       },
                     ),
@@ -160,14 +162,7 @@ class _vistorPageState extends State<vistorPage> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.add_to_home_screen_outlined),
-      ),
+      )
     );
   }
 }
