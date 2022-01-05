@@ -27,7 +27,7 @@ class _WordsCardState extends State<WordsCard> {
           width: 500,
           height: 300,
           child: Text(
-            "$message",
+            "\n\n$message",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 40,
