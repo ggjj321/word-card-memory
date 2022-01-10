@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_setup_web/model/word_card_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 
 class WordsCard extends StatefulWidget {
   const WordsCard({Key? key}) : super(key: key);
@@ -15,8 +16,7 @@ class WordsCard extends StatefulWidget {
 }
 
 class _WordsCardState extends State<WordsCard> {
-
-  createWordCard(message){
+  createWordCard(message) {
     return Card(
       child: InkWell(
         splashColor: Colors.blue.withAlpha(100),
@@ -42,6 +42,7 @@ class _WordsCardState extends State<WordsCard> {
   int cardType = 0;
   int cardNum = 0;
   List<String> type = ["meaning", "word"];
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -55,69 +56,39 @@ class _WordsCardState extends State<WordsCard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FutureBuilder<QuerySnapshot>(
-              future: FirebaseFirestore.instance.collection('wordCards').get(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-
-                if (snapshot.hasError) {
-                  createWordCard("wrong");
-                }
-                if (snapshot.connectionState == ConnectionState.done) {
-                  var docs = snapshot.data;
-                  if(docs == null){
-                    createWordCard("null data");
-                  }
-                  else{
-                    cardNum =  docs.docs.length;
-                    String context = "";
-                    if(wordIndex >= cardNum)wordIndex-=1;
-                    if(cardType == 0){
-                      context = docs.docs[wordIndex]['word'];
-                    }else{
-                      context = docs.docs[wordIndex]['meaning'];
-                    }
-                    return Card(
-                          child: InkWell(
-                            splashColor: Colors.blue.withAlpha(100),
-                            onTap: () {
-                              if(cardType==0){
-                                cardType=1;
-                              }else{
-                                cardType=0;
-                              }
-                              setState(() {
-                              });
-                            },
-                            child: SizedBox(
-                              width: 500,
-                              height: 300,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    '\n\n$context',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 40,
-                                    ),
-                                  ),
-                                  Text(
-                                    '\n\nclick the card to check ${type[cardType]}',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ],
-                              )
-
+            Card(
+              child: InkWell(
+                splashColor: Colors.blue.withAlpha(100),
+                onTap: () {
+                  var wordCardInformation = context.read<WordCardInformation>();
+                  wordCardInformation.changeCardType();
+                },
+                child: SizedBox(
+                    width: 500,
+                    height: 300,
+                    child: Consumer<WordCardInformation>(
+                      builder: (context, wordCardInformation, child) {
+                        return Column(
+                          children: [
+                            Text(
+                              '\n\n${wordCardInformation.getInformation()}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 40,
+                              ),
                             ),
-                          ),
+                            Text(
+                              '\n\nclick the card to check ${wordCardInformation.getCardType()}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
                         );
-                  }
-                }
-                return createWordCard("loading");
-              },
+                      },
+                    )),
+              ),
             ),
 
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
@@ -128,9 +99,8 @@ class _WordsCardState extends State<WordsCard> {
                   textStyle: const TextStyle(fontSize: 20),
                 ),
                 onPressed: () {
-                  if(wordIndex!=0)wordIndex-=1;
-                  cardType = 0;
-                  setState(() {});
+                  var wordCardInformation = context.read<WordCardInformation>();
+                  wordCardInformation.lastCard();
                 },
                 child: const Text('last'),
               ),
@@ -141,9 +111,8 @@ class _WordsCardState extends State<WordsCard> {
                   textStyle: const TextStyle(fontSize: 20),
                 ),
                 onPressed: () {
-                  wordIndex+=1;
-                  cardType = 0;
-                  setState(() {});
+                  var wordCardInformation = context.read<WordCardInformation>();
+                  wordCardInformation.nextCard();
                 },
                 child: const Text('next'),
               ),
@@ -161,8 +130,7 @@ class _WordsCardState extends State<WordsCard> {
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
-                    fontWeight: FontWeight.w700
-                ),
+                    fontWeight: FontWeight.w700),
               ),
               loader: Container(
                 padding: EdgeInsets.all(10),
@@ -172,7 +140,7 @@ class _WordsCardState extends State<WordsCard> {
                 ),
               ),
               onTap: (startLoading, stopLoading, btnState) {
-                if(btnState == ButtonState.Idle){
+                if (btnState == ButtonState.Idle) {
                   Navigator.of(context).pop();
                 }
               },
