@@ -38,6 +38,7 @@ class WordCardInformation extends ChangeNotifier{
   void setInformation() async{
     firebaseStorage = await FirebaseFirestore.instance.collection('wordCards').get();
     cardNum = firebaseStorage.docs.length;
+    cardIndex = 0;
     notifyListeners();
   }
 

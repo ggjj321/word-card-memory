@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:firebase_setup_web/model/word_card_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/src/provider.dart';
 import 'create_account.dart';
 import 'words_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,6 +51,8 @@ class _vistorPageState extends State<vistorPage> {
         context,
         MaterialPageRoute(builder: (context) => WordsCard()),
       );
+      var wordCardInformation = context.read<WordCardInformation>();
+      wordCardInformation.setInformation();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         conditionDialog('No user found for that email.');
