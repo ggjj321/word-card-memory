@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flip_card/flip_card.dart';
 import 'package:firebase_setup_web/model/word_card_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,33 +16,6 @@ class WordsCard extends StatefulWidget {
 }
 
 class _WordsCardState extends State<WordsCard> {
-  createWordCard(message) {
-    return Card(
-      child: InkWell(
-        splashColor: Colors.blue.withAlpha(100),
-        onTap: () {
-          debugPrint('Card tapped.');
-        },
-        child: SizedBox(
-          width: 500,
-          height: 300,
-          child: Text(
-            "\n\n$message",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 40,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  int wordIndex = 0;
-  int cardType = 0;
-  int cardNum = 0;
-  List<String> type = ["meaning", "word"];
-
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
@@ -56,41 +29,66 @@ class _WordsCardState extends State<WordsCard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Card(
-              child: InkWell(
-                splashColor: Colors.blue.withAlpha(100),
-                onTap: () {
-                  var wordCardInformation = context.read<WordCardInformation>();
-                  wordCardInformation.changeCardType();
-                },
+            FlipCard(
+              fill: Fill.fillBack,
+              // Fill the back side of the card to make in the same size as the front.
+              direction: FlipDirection.HORIZONTAL,
+
+              front: Card(
                 child: SizedBox(
-                    width: 500,
-                    height: 300,
-                    child: Consumer<WordCardInformation>(
-                      builder: (context, wordCardInformation, child) {
-                        return Column(
-                          children: [
-                            Text(
-                              '\n\n${wordCardInformation.getInformation()}',
+                  width: 500,
+                  height: 300,
+                  child: Column(
+                    children: [
+                      Consumer<WordCardInformation>(
+                          builder: (context, wordCardInformation, child) {
+                        return Text(
+                          '\n\n${wordCardInformation.getWord("word")}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 40,
+                          ),
+                        );
+                      }),
+                      Text(
+                        '\n\nclick the card to check meaning',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              back: Card(
+                child: SizedBox(
+                  width: 500,
+                  height: 300,
+                  child: Column(
+                    children: [
+                      Consumer<WordCardInformation>(
+                          builder: (context, wordCardInformation, child) {
+                            return Text(
+                              '\n\n${wordCardInformation.getWord("meaning")}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 40,
                               ),
-                            ),
-                            Text(
-                              '\n\nclick the card to check ${wordCardInformation.getCardType()}',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    )),
+                            );
+                          }),
+                      Text(
+                        '\n\nclick the card to check meaning',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               TextButton(
                 style: TextButton.styleFrom(

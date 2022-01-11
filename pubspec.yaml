@@ -27,6 +27,9 @@ dependencies:
 
   provider: ^6.0.2
 
+  flip_card: ^0.6.0
+
+  google_fonts: ^2.2.0
   ## And many more Firebase packages you could use
   #firebase_messaging: ^9.1.1
   #firebase_analytics: ^8.0.0
@@ -41,3 +44,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/google_fonts/

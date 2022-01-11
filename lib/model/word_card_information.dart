@@ -5,20 +5,13 @@ class WordCardInformation extends ChangeNotifier{
   CollectionReference wordCards =
       FirebaseFirestore.instance.collection('wordCards');
 
-  String? cardWord, word, meaning;
+  String? cardWord;
   int? cardNum;
   var firebaseStorage;
-  int cardType = 0;
   int cardIndex = 0;
 
   WordCardInformation(){
     setInformation();
-  }
-
-  void changeCardType(){
-    cardType = cardType == 0 ? 1 : 0;
-    cardWord = cardType == 0 ? word : meaning;
-    notifyListeners();
   }
 
   void nextCard(){
@@ -42,12 +35,12 @@ class WordCardInformation extends ChangeNotifier{
     notifyListeners();
   }
 
-  String getCardType() => cardType == 0 ? "meaning" : "word";
+  String getCardType(String cardType) => cardType == "word" ? "meaning" : "word";
 
-  String getInformation() {
-    if(firebaseStorage != null){
-      if (cardType == 0) {
-        cardWord = firebaseStorage.docs[cardIndex]['word'];
+  String getWord(String cardType) {
+    if(firebaseStorage != null) {
+      if (cardType == "word") {
+        cardWord= firebaseStorage.docs[cardIndex]['word'];
       } else {
         cardWord = firebaseStorage.docs[cardIndex]['meaning'];
       }
