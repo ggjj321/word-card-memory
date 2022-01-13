@@ -10,7 +10,6 @@ import 'create_account.dart';
 import 'words_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class vistorPage extends StatefulWidget {
   const vistorPage({Key? key}) : super(key: key);
@@ -21,6 +20,8 @@ class vistorPage extends StatefulWidget {
 }
 
 class _vistorPageState extends State<vistorPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController psdController = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
 
   void conditionDialog(condition) {
@@ -63,81 +64,92 @@ class _vistorPageState extends State<vistorPage> {
 
   @override
   Widget build(BuildContext context) {
-    late TextEditingController emailController = TextEditingController();
-    late TextEditingController psdController = TextEditingController();
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text("vistor page"),
-        ),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 360,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Sign In to \nmemorize words',
-                    style: TextStyle(
-                      fontSize: 45,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "If you don't have an account",
-                        style: TextStyle(
-                            color: Colors.black54, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        " You can",
-                        style: TextStyle(
-                            color: Colors.black54, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 15),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CreateNewAccount()),
-                          );
-                        },
-                        child: Text(
-                          "Register here!",
-                          style: TextStyle(
-                              color: Colors.deepPurple,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Image.asset(
-                    'images/92154744_p0_master1200.jpg',
-                    width: 300,
-                  ),
-                ],
-              ),
-            ),
 
-            Column(
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
+    double screenWidth = queryData.devicePixelRatio;
+    Orientation orientation = MediaQuery.of(context).orientation;
+
+    return Scaffold(
+        resizeToAvoidBottomInset : false,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text("vistor page"),
+      ),
+      body: Center(
+        child: FractionallySizedBox(
+            widthFactor: 0.9,
+            heightFactor: 1.0,
+          child: SingleChildScrollView(
+            child:  Flex(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              direction: Axis.vertical,
+              children: [
                 Padding(
-                    padding: EdgeInsets.all(150),
+                    padding: EdgeInsets.all(50),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        Container(
+                          width: 360,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Sign In to \nmemorize words',
+                                style: TextStyle(
+                                  fontSize: 45,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "If you don't have an account",
+                                        style: TextStyle(
+                                            color: Colors.black54,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        " You can",
+                                        style: TextStyle(
+                                            color: Colors.black54,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => CreateNewAccount()),
+                                      );
+                                    },
+                                    child: Text(
+                                      "Register here!",
+                                      style: TextStyle(
+                                          color: Colors.deepPurple,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
                         SizedBox(
                           width: 500.0,
                           height: 100.0,
@@ -150,13 +162,11 @@ class _vistorPageState extends State<vistorPage> {
                               labelStyle: TextStyle(fontSize: 12),
                               contentPadding: EdgeInsets.only(left: 30),
                               enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(color: (Colors.blueGrey[50])!),
+                                borderSide: BorderSide(color: (Colors.blueGrey[50])!),
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(color: (Colors.blueGrey[50])!),
+                                borderSide: BorderSide(color: (Colors.blueGrey[50])!),
                                 borderRadius: BorderRadius.circular(15),
                               ),
                             ),
@@ -170,22 +180,16 @@ class _vistorPageState extends State<vistorPage> {
                             obscureText: true,
                             decoration: InputDecoration(
                               hintText: 'Password',
-                              suffixIcon: Icon(
-                                Icons.visibility_off_outlined,
-                                color: Colors.grey,
-                              ),
                               filled: true,
                               fillColor: Colors.blueGrey[50],
                               labelStyle: TextStyle(fontSize: 12),
                               contentPadding: EdgeInsets.only(left: 30),
                               enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(color: (Colors.blueGrey[50])!),
+                                borderSide: BorderSide(color: (Colors.blueGrey[50])!),
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(color: (Colors.blueGrey[50])!),
+                                borderSide: BorderSide(color: (Colors.blueGrey[50])!),
                                 borderRadius: BorderRadius.circular(15),
                               ),
                             ),
@@ -227,23 +231,23 @@ class _vistorPageState extends State<vistorPage> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => CreateNewAccount()),
+                              MaterialPageRoute(builder: (context) => CreateNewAccount()),
                             );
                           },
                           child: const Text(
                             'Create new Account',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black
-                            ),
+                                fontWeight: FontWeight.bold, color: Colors.black),
                           ),
                         ),
                       ],
                     )),
               ],
-            ),
-          ],
-        ));
+            )
+          )
+
+        ),
+      )
+    );
   }
 }

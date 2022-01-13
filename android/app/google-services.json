@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "130413519308",
+    "project_id": "word-card-memory",
+    "storage_bucket": "word-card-memory.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130413519308:android:e394a67323bccf6889bd69",
+        "android_client_info": {
+          "package_name": "com.example.firebase_setup_web"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130413519308-o6tmmcpb92e5rai5ggqs5p4l1d19lnuv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK4nNgcJn9Ao9oEwjS8-Y5ktrrJoGMhas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130413519308-o6tmmcpb92e5rai5ggqs5p4l1d19lnuv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130413519308:android:936264384b1e87d089bd69",
+        "android_client_info": {
+          "package_name": "word_card.memory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130413519308-o6tmmcpb92e5rai5ggqs5p4l1d19lnuv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK4nNgcJn9Ao9oEwjS8-Y5ktrrJoGMhas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130413519308-o6tmmcpb92e5rai5ggqs5p4l1d19lnuv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
