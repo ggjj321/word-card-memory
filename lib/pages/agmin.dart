@@ -95,10 +95,12 @@ class _adminPageState extends State<adminPage> {
                                 textStyle: const TextStyle(fontSize: 20),
                               ),
                               onPressed: () async {
+                                List<String> usersId = [];
                                 wordCards
                                     .add({
                                   'word': wordController.text,
                                   'meaning': meaningController.text,
+                                  'users id' : usersId,
                                 })
                                     .then((value) => print("User Added"))
                                     .catchError((error) =>

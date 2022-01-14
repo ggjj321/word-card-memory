@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:argon_buttons_flutter/argon_buttons_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:firebase_setup_web/model/word_card_information.dart';
 import 'package:flutter/material.dart';
@@ -33,21 +34,24 @@ class _WordsCardState extends State<WordsCard> {
               fill: Fill.fillBack,
               // Fill the back side of the card to make in the same size as the front.
               direction: FlipDirection.HORIZONTAL,
-
               front: Card(
                 child: SizedBox(
                   width: 500,
-                  height: 300,
+                  height: 350,
                   child: Column(
                     children: [
                       Consumer<WordCardInformation>(
                           builder: (context, wordCardInformation, child) {
-                        return Text(
-                          '\n\n${wordCardInformation.getWord("word")}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 40,
-                          ),
+                        return Column(
+                          children: [
+                            Text(
+                              '\n\n${wordCardInformation.getWord("word")}',
+                              // textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 40,
+                              ),
+                            ),
+                          ],
                         );
                       }),
                       Text(
@@ -69,16 +73,20 @@ class _WordsCardState extends State<WordsCard> {
                     children: [
                       Consumer<WordCardInformation>(
                           builder: (context, wordCardInformation, child) {
-                            return Text(
+                        return Column(
+                          children: [
+                            Text(
                               '\n\n${wordCardInformation.getWord("meaning")}',
-                              textAlign: TextAlign.center,
+                              // textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 40,
                               ),
-                            );
-                          }),
+                            ),
+                          ],
+                        );
+                      }),
                       Text(
-                        '\n\nclick the card to check meaning',
+                        '\n\nclick the card to check word',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 20,
@@ -137,8 +145,9 @@ class _WordsCardState extends State<WordsCard> {
                   size: 50.0,
                 ),
               ),
-              onTap: (startLoading, stopLoading, btnState) {
+              onTap: (startLoading, stopLoading, btnState) async {
                 if (btnState == ButtonState.Idle) {
+                  await FirebaseAuth.instance.signOut();
                   Navigator.of(context).pop();
                 }
               },

@@ -92,6 +92,24 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                               SizedBox(
                                 height: 15,
                               ),
+                              Row(children: [
+                                Expanded(
+                                  child: Divider(
+                                    color: Colors.grey[300],
+                                    height: 50,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: Text("use email to create an account"),
+                                ),
+                                Expanded(
+                                  child: Divider(
+                                    color: Colors.grey[400],
+                                    height: 50,
+                                  ),
+                                ),
+                              ]),
                               SizedBox(
                                 width: 500.0,
                                 height: 100.0,
@@ -114,6 +132,24 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                                   ),
                                 ),
                               ),
+                              Row(children: [
+                                Expanded(
+                                  child: Divider(
+                                    color: Colors.grey[300],
+                                    height: 50,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: Text("and set the password"),
+                                ),
+                                Expanded(
+                                  child: Divider(
+                                    color: Colors.grey[400],
+                                    height: 50,
+                                  ),
+                                ),
+                              ]),
                               SizedBox(
                                 width: 500.0,
                                 height: 100.0,
